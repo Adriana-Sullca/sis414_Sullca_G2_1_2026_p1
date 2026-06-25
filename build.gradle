@@ -18,6 +18,7 @@ repositories {
 }
 
 dependencies {
+
 	implementation 'org.springframework.boot:spring-boot-starter-webmvc'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
@@ -26,4 +27,13 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+tasks.named('bootJar'){
+	archiveFileName = 'app.jar'
+}
+
+tasks.namesd('jar'){
+	enabled = false
+
 }
