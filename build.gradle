@@ -33,7 +33,7 @@ tasks.named('bootJar'){
 	archiveFileName = 'app.jar'
 }
 
-tasks.namesd('jar'){
+tasks.named('jar'){
 	enabled = false
 
 }
