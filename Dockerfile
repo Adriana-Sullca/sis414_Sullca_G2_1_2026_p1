@@ -1,12 +1,11 @@
-FROM eclipse-temurin:17-jdk-alpine AS build
-WORKDIR /app
-COPY . .
+FROM gradle:8.5-jdk17 AS build
+COPY --chown=gradle:gradle . /home/gradle/src
+WORKDIR /home/gradle/src
 
-RUN chmod +x ./gradlew
-RUN ./gradle clean bootJar -x test
+RUN gradle build --no-daemon -x test
 
-FROM eclipse-temurin:17-jdk-alpine
-WORKDIR /app
-COPY --from=build /app/build/libs/app.jar app.jar
+
+FROM openjdk:17-jdk-slim
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "app.jar"]
+COPY --from=build /home/gradle/src/build/libs/*.jar app.jar
+ENTRYPOINT ["java", "-jar", "/app.jar"]
